@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+   
+ .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background-color: white;
+      padding: 15px 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .topbar h1 {
+      font-size: 22px;
+      color: #2c3e50;
+    }
+
+    .topbar button {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color:  #f4f6f8;
+  /*padding: 20px;*/
+}
+
+/* ===== Navbar Placeholder ===== */
+.navbar-placeholder {
+  background-color: #eee;
+
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+}
+
+/* ===== Search Heading ===== */
+.search-heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* ===== Grid Container ===== */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+
+  padding: 20px;
+}
+
+/* ===== Dress Card ===== */
+.dress-card {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.dress-card:hover {
+  transform: translateY(-5px);
+}
+
+.dress-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.dress-content {
+  padding: 15px;
+}
+
+.dress-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0px;
+  color: #333;
+}
+
+.dress-description {
+  font-size: 14px;
+  color: #666;
+}
+.dress-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+
+@media (max-width: 600px) {
+  .dress-image {
+    height: 200px;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="main">
+      <div class="topbar">
+        <a href="/dashboard"  style="text-decoration: none;">
+        <h1>Dashboard Overview</h1>
+        </a>
+        <a href="/logout">
+          <button>Logout</button>
+        </a>
+      </div>
+  </div>
+      <div class="results-grid">
+      <% if (dresses && dresses.length > 0) { %>
+        <% dresses.forEach(dress => { %>
+          <a href="/dress/<%= dress.id %>" class="dress-card-link">
+          <input type="hidden" name="ItemId" value="<%= dress.id %>">
+          <div class="dress-card">
+            <img src="/uploads/<%= dress.main_image %>" alt="Dress Image" class="dress-image">
+            <div class="dress-content">
+              <div class="dress-title"><%= dress.title %></div>
+              <p>Price-Per-Day:<%= dress.price_per_day %></p>
+            </div>
+          </div> 
+        </a>  
+        <% });} %>
+      </div>
+</body>
+</html>

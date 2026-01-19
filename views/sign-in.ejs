@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-in/page</title>
+    <link rel="stylesheet" href="/styles/sign-inStyle.css">
+<style>
+           body{
+  position: relative; 
+  min-height: 100vh;
+  margin: 0;
+  padding-bottom: 150px;
+}
+body {
+    overflow-x: hidden;
+   
+  }
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        
+     <div class="logo">Dress Rental</div> 
+        
+        <ul class="nav-links">  
+            <li><a>Men</a>
+                <div class="dropdown-content">
+                    <a href="#">Party Wear</a>
+                    <a href="#">Wedding Wear</a>
+                </div>
+            </li>
+            <li><a>Women</a>
+                <div class="dropdown-content">
+                    <a href="#">Party Wear</a>
+                    <a href="#">Wedding Wear</a>
+                </div>
+            </li>
+            <li><a>Kids</a>
+                <div class="dropdown-content">
+                    <a href="#">Party Wear</a>
+                    <a href="#">Wedding Wear</a>
+                </div>
+            </li>
+        </ul>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products, brands, and more">
+        </div>
+                
+            
+       <!-- <div class="icons">
+            <button class="btn">Login</button>
+            <button class="btn">Sign In</button>
+        </div> -->
+       <div class="profile">
+        <form action="/login" method="GET">
+            <button class="btn">Login</button>
+        </form>
+           <!-- <div class="profile-dropdown" id="profileDropdown">
+                <button>Username</button>
+                <button>Orders</button>
+                <button>Cart</button>
+                <button>Logout</button>
+            </div> -->
+        </div>  
+    </nav>
+    <%- include("header.ejs") %>
+    <div class="container"  style="margin-bottom: 50px;  background-image: url('backgorund.jpg') !important; background-size: cover; background-position: center;">
+        <h2>Sign Up</h2>
+        <form action="/submit-signup" method="POST">
+            <div class="input-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required   pattern="[A-Za-z\s]+" 
+                title="Name should contain only letters and spaces">
+                <% if(locals.mess1){ %>
+                    <p><%= mess1 %></p>
+                    <% }  %>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                  <input
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Enter Email"
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$"
+                required >
+                <% if(locals.mess3){ %>
+                    <p><%= mess3 %></p>
+                    <% }  %>
+            </div>
+            <div class="input-group">
+                <label for="password">Set Password</label>
+                <input type="password" id="password" name="password" placeholder="Set Password" required>
+            </div>
+            <div class="input-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required  pattern="[6-9][0-9]{9}" 
+                maxlength="10"
+                title="Enter a valid 10-digit number starting from 6 t0 9">
+                <% if(locals.mess2){ %>
+                    <p><%= mess2 %></p>
+                    <% }  %>
+            </div>
+            <div class="input-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your address" required>
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+        
+         <%- include("footer.ejs") %>
+    </div>
+    <footer class="footer">
+        <p>All copyright Dress rental ©2025</p>
+    </footer>
+</body>
+</html>
