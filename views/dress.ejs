@@ -1,0 +1,656 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dress Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    height: 70px;
+    position: fixed;
+     top: 0; 
+     width: 100%;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+    position: relative;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.nav-links li:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    width: 150px;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 5px 0;
+    color: black;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    color: #ff3f6c;
+}
+
+.search-bar input {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff3f6c;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #e63950;
+    transform: scale(1.05);
+}
+.profile {
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 200px;
+    border-radius: 5px;
+}
+
+.profile:hover .profile-dropdown {
+    display: block;
+}
+
+.profile-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #ff3f6c;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.profile-dropdown button:hover {
+    background-color: #e63950;
+    transform: scale(1.05);
+}
+.container{
+  margin-top: 80px;
+}
+  </style>
+</head>
+
+
+<body class="bg-gray-50">
+  <nav class="navbar">
+    <div class="logo">Dress Rental</div>
+    <ul class="nav-links">
+        <li><a>Men</a>
+            <div class="dropdown-content">
+                <a href="https://i.pinimg.com/736x/08/be/6b/08be6b6ae1811fff354f19385ee837c7.jpg">Party Wear</a>
+                <a href="#">Wedding Wear</a>
+            </div>
+        </li>
+        <li><a>Women</a>
+            <div class="dropdown-content">
+                <a href="#">Party Wear</a>
+                <a href="#">Wedding Wear</a>
+            </div>
+        </li>
+        <li><a>Kids</a>
+            <div class="dropdown-content">
+                <a href="#">Party Wear</a>
+                <a href="#">Wedding Wear</a>
+            </div>
+        </li>
+    </ul>
+    <form action="/search" method="POST">
+      <div class="search-bar">
+          <input type="text" placeholder="Search for products, brands, and more" name="search">
+          <button type="submit">Search</button> 
+      </div>
+    </form>
+    <div class="icons">
+        <button class="btn">Login</button>
+        <button class="btn">Sign In</button>
+    </div>
+    <div class="profile">
+        <button class="btn">Profile</button>
+        <div class="profile-dropdown" id="profileDropdown">
+            <button>Username</button>
+            <button>Orders</button>
+            <button>Cart</button>
+            <button>Logout</button>
+        </div>
+       
+
+    </div>
+</nav>
+
+
+  
+  <div class="max-w-7xl mx-auto p-6 container">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <% if(locals.detail){ %>
+      <div>
+        <div class="aspect-w-3 aspect-h-4">
+          <img src="/<%=detail.main_image%>" alt="Dress" class="rounded-xl shadow-md object-cover w-full">
+          <p><%= detail.main_image %></p>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <img src="/<%= detail.image_url %>" class="w-24 h-32 object-cover rounded-md cursor-pointer" />
+        </div>
+      </div>
+      <% } %>
+      
+      <div class="flex flex-col gap-4">
+        <h1 class="text-3xl font-semibold"><%= detail.d_name %></h1>
+        <p class="text-xl text-red-600 font-bold">₹<%= detail.price_per_day %> / day</p>
+        <p class="text-sm text-gray-500">Late fee: ₹<%= detail.late_fee_per_day %>/day</p>
+
+        
+        <div>
+          <label class="block mb-1 font-medium">Select Size</label>
+          <select class="w-full border rounded-lg px-4 py-2">
+            <option>XS</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+          </select>
+        </div>
+
+        
+        <div class="flex gap-4">
+          <button class="btn">Rent Now</button>
+          <button class="btn">Add to Cart</button>
+          
+        </div>
+
+        <% if(locals.detail){ %>
+        <div>
+          <h2 class="text-lg font-semibold mt-4">Description</h2>
+          <p class="text-gray-700 mt-1">
+            <%=detail.d_description %>
+          </p>
+          <ul class="list-disc list-inside mt-2 text-gray-600">
+            <li>Material: Silk blend</li>
+            <li>Color: <%=detail.color%></li>
+            <li>Occasion: <%=detail.type%></li>
+          </ul>
+        </div>
+        <% } %>
+        
+        <div>
+          <h2 class="text-lg font-semibold mt-4">Delivery Information</h2>
+          <ul class="list-disc list-inside mt-2 text-gray-600">
+            <li>Standard Delivery: 2–3 business days</li>
+            <li>Express Delivery: Within 24 hours (extra ₹199)</li>
+            <li>Free return pickup included</li>
+            <li>Delivery available across major cities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+   
+    <div class="mt-10">
+      <h2 class="text-2xl font-bold mb-4">Customer Reviews</h2>
+      <div class="space-y-4">
+        <div class="bg-white p-4 rounded-lg shadow">
+          <div class="flex justify-between items-center">
+            <p class="font-semibold">Priya</p>
+            <p class="text-yellow-500">★★★★☆</p>
+          </div>
+          <p class="text-gray-700 mt-1">Fit perfectly! Looked exactly like the pictures.</p>
+          <p class="text-xs text-gray-400">March 2025</p>
+        </div>
+
+        <div class="bg-white p-4 rounded-lg shadow">
+          <div class="flex justify-between items-center">
+            <p class="font-semibold">Ananya</p>
+            <p class="text-yellow-500">★★★★★</p>
+          </div>
+          <p class="text-gray-700 mt-1">Loved the fabric and fitting. Got compliments all evening!</p>
+          <p class="text-xs text-gray-400">February 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dress Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+   //Swiper CSS 
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+  />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 70px;
+      z-index: 10;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+    }
+
+    .nav-links li {
+      margin: 0 15px;
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .nav-links li:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      border-radius: 5px;
+      width: 150px;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 5px 0;
+      color: black;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      color: #ff3f6c;
+    }
+
+    .search-bar input {
+      padding: 8px;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff3f6c;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #e63950;
+      transform: scale(1.05);
+    }
+
+    .profile {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      width: 200px;
+      border-radius: 5px;
+    }
+
+    .profile:hover .profile-dropdown {
+      display: block;
+    }
+
+    .profile-dropdown button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      background-color: #ff3f6c;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .profile-dropdown button:hover {
+      background-color: #e63950;
+      transform: scale(1.05);
+    }
+
+    .container {
+      margin-top: 90px;
+    }
+    .icons {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adds spacing between buttons */
+}
+
+.icons form {
+    display: flex;
+}
+  </style>
+</head>
+
+<body class="bg-gray-50">
+  
+  <div class="max-w-7xl mx-auto p-6 container">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+
+      
+        <div>
+          <h2 class="text-lg font-semibold mt-4">Delivery Information</h2>
+          <ul class="list-disc list-inside mt-2 text-gray-600">
+            <li>Standard Delivery: 2–3 business days</li>
+            <li>Express Delivery: Within 24 hours (extra ₹199)</li>
+            <li>Free return pickup included</li>
+            <li>Delivery available across major cities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <h2 class="text-2xl font-bold mb-4">Customer Reviews</h2>
+      <div class="space-y-4">
+        <div class="bg-white p-4 rounded-lg shadow">
+          <div class="flex justify-between items-center">
+            <p class="font-semibold">Priya</p>
+            <p class="text-yellow-500">★★★★☆</p>
+          </div>
+          <p class="text-gray-700 mt-1">Fit perfectly! Looked exactly like the pictures.</p>
+          <p class="text-xs text-gray-400">March 2025</p>
+        </div>
+
+        <div class="bg-white p-4 rounded-lg shadow">
+          <div class="flex justify-between items-center">
+            <p class="font-semibold">Ananya</p>
+            <p class="text-yellow-500">★★★★★</p>
+          </div>
+          <p class="text-gray-700 mt-1">Loved the fabric and fitting. Got compliments all evening!</p>
+          <p class="text-xs text-gray-400">February 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ //  Swiper JS 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".mySwiper", {
+      loop: true,
+      spaceBetween: 10,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
+    function swapImage(clickedImg) {
+      const mainImg=document.getElementById("main-image");
+      const tempsrc=mainImg.src;
+      mainImg.src=clickedImg.src;
+      clickedImg.src=tempsrc;
+    }
+  </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dress Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <%- include("header.ejs") %>
+
+  <div class="max-w-7xl mx-auto p-6 mt-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+           <% if (locals.detail) { %>
+          <!-- Swiper Slider -->
+          <div class="swiper mySwiper rounded-xl shadow-md">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="aspect-w-3 aspect-h-4">
+                  <img id="main-image" src="/uploads/<%= detail.main_image %>" alt="Dress" class="rounded-xl shadow-md object-cover w-full">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+
+          <!-- Thumbnails -->
+          <div id="thumbnails" class="flex gap-2 mt-4">
+            <% [detail.image1, detail.image2, detail.image3, detail.image4, detail.image5].forEach(image => {
+              if (image) { %>
+                <img src="/uploads/<%= image %>" class="w-24 h-32 object-cover rounded-md cursor-pointer" onclick="swapImage(this)"/>
+            <% } }); %>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <h1 class="text-3xl font-semibold"><%= detail.title %></h1>
+          <p class="text-xl text-red-600 font-bold">₹<%= detail.price_per_day %> / day</p>
+          <p class="text-sm text-gray-500">Late fee: ₹<%= detail.late_fee_per_day %>/day</p>
+
+          <div>
+            <label class="block mb-1 font-medium">Select Size</label>
+            <select class="w-full border rounded-lg px-4 py-2">
+              <option>XS</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+            </select>
+          </div>
+
+          <div class="flex gap-4">
+            <% if (locals.update) { %>
+              
+            <% } else { %>
+              <a href="/rent/<%= detail.id %>"><button class="btn">Rent Now</button></a>
+            <% } %>
+          </div>
+
+          <div>
+            <h2 class="text-lg font-semibold mt-4">Description</h2>
+            <p class="text-gray-700 mt-1"><%= detail.d_description %></p>
+            <ul class="list-disc list-inside mt-2 text-gray-600">
+              <li>Material: <%= detail.material %></li>
+              <li>Color: <%= detail.color %></li>
+              <li>Occasion: <%= detail.type %></li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="text-lg font-semibold mt-4">Delivery Information</h2>
+            <ul class="list-disc list-inside mt-2 text-gray-600">
+              <li>Standard Delivery: 2–3 business days</li>
+              <li>Express Delivery: Within 24 hours (extra ₹199)</li>
+              <li>Free return pickup included</li>
+              <li>Delivery available across major cities</li>
+            </ul>
+          </div>
+        </div>
+         <% if(locals.update){ %>
+          <% } else { %>
+             <a href="/feedback<%= detail.id %>"><button class="btn mt-4">Rate dress</button></a>
+              <div class="mt-10">
+             <h2 class="text-2xl font-bold mb-4">Customer Reviews</h2>
+
+            <% }%>
+         
+      <% } %>
+    </div>
+
+  
+    <div class="space-y-4">
+    <% if (locals.feedback && feedback.length > 0) { %>
+      <% feedback.forEach(feed=> { %>
+        <div class="bg-white p-4 rounded-lg shadow">
+          <div class="flex justify-between items-center">
+            <p class="font-semibold"><%= feed.name %></p>
+            <p class="text-yellow-500">★★★★☆</p> 
+          </div>
+          <p class="text-gray-700 mt-1"><%= feed.comment %></p>
+          <p class="text-xs text-gray-400"><%= feed.year || '2025' %></p>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p class="text-gray-500">No reviews yet.</p>
+    <% } %>
+    </div>
+   </div>
+  </div>
+
+ 
+
+    
+
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".mySwiper", {
+      loop: true,
+      spaceBetween: 10,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
+    function swapImage(clickedImg) {
+      const mainImg = document.getElementById("main-image");
+      const tempSrc = mainImg.src;
+      mainImg.src = clickedImg.src;
+      clickedImg.src = tempSrc;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-in/page</title>
+    <link rel="stylesheet" href="/styles/sign-inStyle.css">
+    <style>
+        body{
+  position: relative; 
+  min-height: 100vh;
+  margin: 0;
+  padding-bottom: 150px;
+}
+.background {
+      background-image: url("../public/backgorund.jpg");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    </style>
+
+</head>
+<body>
+   <%- include("header.ejs") %>
+    
+        <h2>Login</h2> <div class="container backgorund" style="background-image: url('backgorund.jpg') !important; background-size: cover; background-position: center;" >
+        <form action="/login-submit" method="POST">
+            <% if(locals.dressId) {%>
+            <input type="hidden"  name="dressId" value="<%= dressId %>">
+            <% } %>
+            <div class="input-group">              
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Set Password" required>
+            </div>
+            <% if(locals.message){ %>
+            <p><%= message %></p>
+            <% } %>
+            <button type="submit" style="background-color:#4d1f00 ;" class="btn">Login</button>
+        </form>
+    </div>
+    <%- include("footer.ejs") %>
+</body>
+</html>
