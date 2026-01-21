@@ -170,7 +170,7 @@ app.post("/delivery_email_sent", async (req, res) => {
       service: 'gmail',
       auth: {
         user: 'nancygupta1803@gmail.com',
-        pass: 'flvu twsd vvle bvst',
+        pass: process.env.EMAIL_PASSWORD,
 
       },
     });
